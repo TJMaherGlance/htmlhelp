@@ -1,0 +1,70 @@
+<!-- pages/about.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About Us - Our Website</title>
+    <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+    <header>
+        <h1>About Us</h1>
+        <button id="theme-toggle" aria-label="Toggle Light and Dark Mode">Switch to Dark Mode</button>
+    </header>
+    <div class="container">
+        <nav aria-label="Primary Navigation">
+            <div class="nav-logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="Our Website Logo" />
+                </a>
+            </div>
+            <form id="nav-search" role="search" aria-label="Site navigation search">
+                <label for="nav-search-input" class="visually-hidden">Search navigation links</label>
+                <input type="search" id="nav-search-input" placeholder="Search..." autocomplete="off" />
+            </form>
+            <a href="../index.html">Home</a>
+            <a href="about.html" aria-current="page">About</a>
+            <a href="services.html">Services</a>
+            <a href="../index.html#contact">Contact</a>
+        </nav>
+        <main>
+            <nav aria-label="Breadcrumb" class="breadcrumb">
+                <ol>
+                    <li><a href="../index.html">Home</a></li>
+                    <li aria-current="page">About Us</li>
+                </ol>
+            </nav>
+            <section>
+                <h2>Who We Are</h2>
+                <p>
+                    Our company has been dedicated to delivering exceptional services for years. Our
+                    passionate team focuses on innovative solutions and customer satisfaction.
+                </p>
+                <p>
+                    We believe in transparency, quality, and continuous improvement to stay ahead in the industry.
+                </p>
+            </section>
+        </main>
+    </div>
+    <footer>
+        &copy; 2024 Our Website. All rights reserved.
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+    (function() {
+      const searchInput = document.getElementById('nav-search-input');
+      const navLinks = Array.from(document.querySelectorAll('nav a'));
+
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.trim().toLowerCase();
+        navLinks.forEach(link => {
+          const text = link.textContent.toLowerCase();
+          link.style.display = text.includes(query) ? '' : 'none';
+        });
+      });
+    })();
+    </script>
+</body>
+</html>
