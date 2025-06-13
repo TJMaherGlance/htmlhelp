@@ -1,78 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Welcome to Our Homepage</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Welcome to Our Homepage</title>
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Welcome to Our Website</h1>
-    <p>Your gateway to amazing content</p>
-    <button id="theme-toggle" aria-label="Toggle Light and Dark Mode">Switch to Dark Mode</button>
-  </header>
-  <div class="container">
-      <nav aria-label="Primary Navigation">
-          <div class="nav-logo">
-              <a href="index.html" id="nav-logo-link">
-                  <img src="images/logo.png" alt="Our Website Logo" />
-              </a>
-          </div>
+    <header>
+        <h1>Welcome to Our Website</h1>
+        <p>Your gateway to amazing content</p>
+        <button id="theme-toggle" aria-label="Toggle Light and Dark Mode">Switch to Dark Mode</button>
+    </header>
+    <div class="container">
+        <nav aria-label="Primary Navigation">
+            <div class="nav-logo">
+                <a href="index.html" id="nav-logo-link">
+                    <img src="images/logo.png" alt="Our Website Logo" />
+                </a>
+            </div>
 
-          <form id="nav-search" role="search" aria-label="Site navigation search">
-              <label for="nav-search-input" class="visually-hidden">Search navigation links</label>
-              <input type="search" id="nav-search-input" placeholder="Search..." autocomplete="off" />
-          </form>
+            <form id="nav-search" role="search" aria-label="Site navigation search">
+                <label for="nav-search-input" class="visually-hidden">Search navigation links</label>
+                <input type="search" id="nav-search-input" placeholder="Search..." autocomplete="off" />
+            </form>
 
-          <ul id="nav-list" class="nav-list"></ul>
-      </nav>
-    <main>
-      <section id="about">
-        <h2>About Us</h2>
-        <p>
-          We are committed to providing the best quality service and content for our visitors.
-          Our team of dedicated professionals work tirelessly to ensure your experience is smooth and enjoyable.
-        </p>
-      </section>
-      <section id="services">
-        <h2>Our Services</h2>
-        <ul>
-          <li>Custom web development tailored to your needs</li>
-          <li>SEO and marketing solutions</li>
-          <li>24/7 customer support</li>
-          <li>Content creation and management</li>
-        </ul>
-      </section>
-      <section id="contact">
-        <h2>Contact Us</h2>
-        <p>If you have any questions, feel free to reach out:</p>
-        <address>
-          Email: <a href="mailto:info@ourwebsite.com">info@ourwebsite.com</a><br />
-          Phone: +1 234 567 8900<br />
-          Address: 123 Main Street, City, Country
-        </address>
-      </section>
-    </main>
-  </div>
-  <footer>
-    &copy; 2024 Our Website. All rights reserved.
-  </footer>
+            <ul id="nav-list" class="nav-list"></ul>
+        </nav>
+        <main>
+            <section id="about">
+                <h2>About Us</h2>
+                <p>
+                    We are committed to providing the best quality service and content for our visitors.
+                    Our team of dedicated professionals work tirelessly to ensure your experience is smooth and enjoyable.
+                </p>
+            </section>
+            <section id="services">
+                <h2>Our Services</h2>
+                <ul>
+                    <li>Custom web development tailored to your needs</li>
+                    <li>SEO and marketing solutions</li>
+                    <li>24/7 customer support</li>
+                    <li>Content creation and management</li>
+                </ul>
+            </section>
+            <section id="contact">
+                <h2>Contact Us</h2>
+                <p>If you have any questions, feel free to reach out:</p>
+                <address>
+                    Email: <a href="mailto:info@ourwebsite.com">info@ourwebsite.com</a><br />
+                    Phone: +1 234 567 8900<br />
+                    Address: 123 Main Street, City, Country
+                </address>
+            </section>
+        </main>
+    </div>
+    <footer>
+        &copy; 2024 Our Website. All rights reserved.
+    </footer>
 
-  <script src="script.js"></script>
-  <script>
-    (function() {
-      const searchInput = document.getElementById('nav-search-input');
-      const navLinks = Array.from(document.querySelectorAll('nav a'));
+    <script src="script.js"></script>
+    <script>
+        const navStructure = [
+            { title: "Home", url: "index.html" },
+            {
+                title: "About",
+                url: "pages/about.html",
+                subpages: [
+                    // example subpages can be listed here if available
+                    //{ title: "Team", url: "pages/about-team.html" }
+                ]
+            },
+            {
+                title: "Services",
+                url: "pages/services.html",
+                subpages: [
+                    // example subpages for services
+                ]
+            },
+            { title: "Contact", url: "#contact" }
+        ];
 
-      searchInput.addEventListener('input', () => {
-        const query = searchInput.value.trim().toLowerCase();
-        navLinks.forEach(link => {
-          const text = link.textContent.toLowerCase();
-          link.style.display = text.includes(query) ? '' : 'none';
+        function buildNav(navData, navElement) {
+            navData.forEach(item => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.textContent = item.title;
+                a.href = item.url;
+
+                if (isCurrentPage(item.url)) {
+                    a.classList.add('current-page');
+                    a.setAttribute('aria-current', 'page');
+                }
+
+                li.appendChild(a);
+
+                if (item.subpages && item.subpages.length > 0) {
+                    li.classList.add('has-sub');
+                    const ulSub = document.createElement('ul');
+                    item.subpages.forEach(sub => {
+                        const subLi = document.createElement('li');
+                        const subA = document.createElement('a');
+                        subA.textContent = sub.title;
+                        subA.href = sub.url;
+                        if (isCurrentPage(sub.url)) {
+                            subA.classList.add('current-page');
+                            subA.setAttribute('aria-current', 'page');
+                            li.classList.add('expanded');
+                        }
+                        subLi.appendChild(subA);
+                        ulSub.appendChild(subLi);
+                    });
+                    li.appendChild(ulSub);
+                    a.addEventListener('click', e => {
+                        e.preventDefault();
+                        li.classList.toggle('expanded');
+                    });
+                }
+                navElement.appendChild(li);
+            });
+        }
+
+        function isCurrentPage(url) {
+            const page = window.location.pathname.split('/').pop();
+            if (!url || url.startsWith('#')) return false;
+            const urlPage = url.split('/').pop();
+            return page === urlPage;
+        }
+
+        function setupSearchFilter() {
+            const searchInput = document.getElementById('nav-search-input');
+            const navList = document.getElementById('nav-list');
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.trim().toLowerCase();
+                const links = navList.querySelectorAll('a');
+
+                links.forEach(a => {
+                    const text = a.textContent.toLowerCase();
+                    a.style.display = text.includes(query) ? '' : 'none';
+                });
+
+                const listItems = navList.querySelectorAll('li');
+                listItems.forEach(li => {
+                    const visibleDescendants = li.querySelectorAll('a:not([style*="display: none"])');
+                    li.style.display = visibleDescendants.length > 0 ? '' : 'none';
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navList = document.getElementById('nav-list');
+            if (navList) {
+                buildNav(navStructure, navList);
+                setupSearchFilter();
+            }
         });
-      });
-    })();
-  </script>
+    </script>
 </body>
 </html>

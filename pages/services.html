@@ -15,8 +15,8 @@
     <div class="container">
         <nav aria-label="Primary Navigation">
             <div class="nav-logo">
-                <a href="index.html" id="nav-logo-link">
-                    <img src="images/logo.png" alt="Our Website Logo" />
+                <a href="../index.html" id="nav-logo-link">
+                    <img src="../images/logo.png" alt="Our Website Logo" />
                 </a>
             </div>
 
@@ -51,18 +51,96 @@
 
     <script src="../script.js"></script>
     <script>
-    (function() {
-      const searchInput = document.getElementById('nav-search-input');
-      const navLinks = Array.from(document.querySelectorAll('nav a'));
+        const navStructure = [
+            { title: "Home", url: "../index.html" },
+            {
+                title: "About",
+                url: "about.html",
+                subpages: []
+            },
+            {
+                title: "Services",
+                url: "services.html",
+                subpages: []
+            },
+            { title: "Contact", url: "../index.html#contact" }
+        ];
 
-      searchInput.addEventListener('input', () => {
-        const query = searchInput.value.trim().toLowerCase();
-        navLinks.forEach(link => {
-          const text = link.textContent.toLowerCase();
-          link.style.display = text.includes(query) ? '' : 'none';
+        function buildNav(navData, navElement) {
+            navData.forEach(item => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.textContent = item.title;
+                a.href = item.url;
+
+                if (isCurrentPage(item.url)) {
+                    a.classList.add('current-page');
+                    a.setAttribute('aria-current', 'page');
+                }
+
+                li.appendChild(a);
+
+                if (item.subpages && item.subpages.length > 0) {
+                    li.classList.add('has-sub');
+                    const ulSub = document.createElement('ul');
+                    item.subpages.forEach(sub => {
+                        const subLi = document.createElement('li');
+                        const subA = document.createElement('a');
+                        subA.textContent = sub.title;
+                        subA.href = sub.url;
+                        if (isCurrentPage(sub.url)) {
+                            subA.classList.add('current-page');
+                            subA.setAttribute('aria-current', 'page');
+                            li.classList.add('expanded');
+                        }
+                        subLi.appendChild(subA);
+                        ulSub.appendChild(subLi);
+                    });
+                    li.appendChild(ulSub);
+                    a.addEventListener('click', e => {
+                        e.preventDefault();
+                        li.classList.toggle('expanded');
+                    });
+                }
+                navElement.appendChild(li);
+            });
+        }
+
+        function isCurrentPage(url) {
+            const page = window.location.pathname.split('/').pop();
+            if (!url || url.startsWith('#')) return false;
+            const urlPage = url.split('/').pop();
+            return page === urlPage;
+        }
+
+        function setupSearchFilter() {
+            const searchInput = document.getElementById('nav-search-input');
+            const navList = document.getElementById('nav-list');
+
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.trim().toLowerCase();
+                const links = navList.querySelectorAll('a');
+
+                links.forEach(a => {
+                    const text = a.textContent.toLowerCase();
+                    a.style.display = text.includes(query) ? '' : 'none';
+                });
+
+                const listItems = navList.querySelectorAll('li');
+                listItems.forEach(li => {
+                    const visibleDescendants = li.querySelectorAll('a:not([style*="display: none"])');
+                    li.style.display = visibleDescendants.length > 0 ? '' : 'none';
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const navList = document.getElementById('nav-list');
+            if (navList) {
+                buildNav(navStructure, navList);
+                setupSearchFilter();
+            }
         });
-      });
-    })();
     </script>
 </body>
 </html>
