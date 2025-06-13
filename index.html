@@ -13,21 +13,20 @@
     <button id="theme-toggle" aria-label="Toggle Light and Dark Mode">Switch to Dark Mode</button>
   </header>
   <div class="container">
-    <nav aria-label="Primary Navigation">
-      <div class="nav-logo">
-        <a href="index.html">
-          <img src="images/logo.png" alt="Our Website Logo" />
-        </a>
-      </div>
-      <form id="nav-search" role="search" aria-label="Site navigation search">
-        <label for="nav-search-input" class="visually-hidden">Search navigation links</label>
-        <input type="search" id="nav-search-input" placeholder="Search..." autocomplete="off" />
-      </form>
-      <a href="index.html" aria-current="page">Home</a>
-      <a href="pages/about.html">About</a>
-      <a href="pages/services.html">Services</a>
-      <a href="#contact">Contact</a>
-    </nav>
+      <nav aria-label="Primary Navigation">
+          <div class="nav-logo">
+              <a href="index.html" id="nav-logo-link">
+                  <img src="images/logo.png" alt="Our Website Logo" />
+              </a>
+          </div>
+
+          <form id="nav-search" role="search" aria-label="Site navigation search">
+              <label for="nav-search-input" class="visually-hidden">Search navigation links</label>
+              <input type="search" id="nav-search-input" placeholder="Search..." autocomplete="off" />
+          </form>
+
+          <ul id="nav-list" class="nav-list"></ul>
+      </nav>
     <main>
       <section id="about">
         <h2>About Us</h2>

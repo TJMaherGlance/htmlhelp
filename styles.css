@@ -225,3 +225,84 @@ body.dark-mode .breadcrumb li a {
 body.dark-mode .breadcrumb li[aria-current="page"] {
   color: var(--color-text-dark);
 }
+
+.nav-list,
+.nav-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .nav-list > li {
+        position: relative;
+    }
+
+    .nav-list a {
+        display: block;
+        padding: 12px 20px;
+        color: #222;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+body.dark-mode .nav-list a {
+    color: #ddd;
+}
+
+.nav-list a:hover,
+.nav-list a:focus {
+    background-color: var(--color-primary-light);
+    color: #fff;
+    outline: none;
+}
+
+body.dark-mode .nav-list a:hover,
+body.dark-mode .nav-list a:focus {
+    background-color: var(--color-primary-dark);
+}
+
+/* Highlight current page link */
+.nav-list a.current-page {
+    font-weight: bold;
+    background-color: var(--color-primary-light);
+    color: #fff;
+}
+
+body.dark-mode .nav-list a.current-page {
+    background-color: var(--color-primary-dark);
+}
+
+/* Dropdown styles */
+.nav-list li ul {
+    display: none;
+    background-color: #f4f4f4;
+    position: static;
+    margin-left: 0;
+}
+
+body.dark-mode .nav-list li ul {
+    background-color: #1d1d1d;
+}
+
+.nav-list li.expanded > ul {
+    display: block;
+}
+
+.nav-list li ul li a {
+    padding-left: 40px;
+    font-size: 0.9rem;
+}
+
+/* Dropdown toggle arrow */
+.nav-list li.has-sub > a::after {
+    content: "▼";
+    float: right;
+    font-size: 0.6rem;
+    margin-left: 8px;
+    user-select: none;
+    transition: transform 0.3s ease;
+}
+
+.nav-list li.expanded.has-sub > a::after {
+    transform: rotate(180deg);
+}
