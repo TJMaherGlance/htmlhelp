@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Welcome to Our Homepage</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>Welcome to Our Website</h1>
+    <p>Your gateway to amazing content</p>
+    <button id="theme-toggle" aria-label="Toggle Light and Dark Mode">Switch to Dark Mode</button>
+  </header>
+  <div class="container">
+    <nav aria-label="Primary Navigation">
+      <div class="nav-logo">
+        <a href="index.html">
+          <img src="images/logo.png" alt="Our Website Logo" />
+        </a>
+      </div>
+      <form id="nav-search" role="search" aria-label="Site navigation search">
+        <label for="nav-search-input" class="visually-hidden">Search navigation links</label>
+        <input type="search" id="nav-search-input" placeholder="Search..." autocomplete="off" />
+      </form>
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="pages/about.html">About</a>
+      <a href="pages/services.html">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <main>
+      <section id="about">
+        <h2>About Us</h2>
+        <p>
+          We are committed to providing the best quality service and content for our visitors.
+          Our team of dedicated professionals work tirelessly to ensure your experience is smooth and enjoyable.
+        </p>
+      </section>
+      <section id="services">
+        <h2>Our Services</h2>
+        <ul>
+          <li>Custom web development tailored to your needs</li>
+          <li>SEO and marketing solutions</li>
+          <li>24/7 customer support</li>
+          <li>Content creation and management</li>
+        </ul>
+      </section>
+      <section id="contact">
+        <h2>Contact Us</h2>
+        <p>If you have any questions, feel free to reach out:</p>
+        <address>
+          Email: <a href="mailto:info@ourwebsite.com">info@ourwebsite.com</a><br />
+          Phone: +1 234 567 8900<br />
+          Address: 123 Main Street, City, Country
+        </address>
+      </section>
+    </main>
+  </div>
+  <footer>
+    &copy; 2024 Our Website. All rights reserved.
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    (function() {
+      const searchInput = document.getElementById('nav-search-input');
+      const navLinks = Array.from(document.querySelectorAll('nav a'));
+
+      searchInput.addEventListener('input', () => {
+        const query = searchInput.value.trim().toLowerCase();
+        navLinks.forEach(link => {
+          const text = link.textContent.toLowerCase();
+          link.style.display = text.includes(query) ? '' : 'none';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
